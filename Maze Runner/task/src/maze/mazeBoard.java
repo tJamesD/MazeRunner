@@ -22,10 +22,24 @@ public class mazeBoard {
         }
     }
 
-    public void printMazeBoardArray() {
+    public void printMazeBoardArrayOneZero() {
         for(int rows = 0; rows < mazeBoardArray.length; rows++) {
             for (int cols = 0; cols<mazeBoardArray[rows].length; cols++) {
                 System.out.print(mazeBoardArray[rows][cols]);
+            }
+            System.out.println();
+        }
+    }
+
+    public void printMazeBoardArrayWalls() {
+        for(int rows = 0; rows < mazeBoardArray.length; rows++) {
+            for (int cols = 0; cols<mazeBoardArray[rows].length; cols++) {
+                if(mazeBoardArray[rows][cols] == 0 ) {
+                    System.out.print("  ");
+                }
+                if(mazeBoardArray[rows][cols] == 1 ){
+                    System.out.print("\u2588\u2588");
+                }
             }
             System.out.println();
         }
