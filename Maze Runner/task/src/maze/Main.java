@@ -8,7 +8,11 @@ public class Main {
         maze.createEntranceExit();
         maze.printMazeBoardArrayOneZero();
         maze.printMazeBoardArrayWalls();
+        maze.createUnChangeableWallArray();
         maze.scanArrayForOneCount();
+        maze.printMazeBoardArrayOneZero();
+        maze.printMazeBoardArrayWalls();
+        System.out.println("HERE");
         //System.out.println(maze.createUnChangeableWallArray().toString());
 
         //String[] temp = maze.setSurroundingCellArray(0,0);

@@ -1,6 +1,7 @@
 package maze;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class mazeBoard {
@@ -40,8 +41,20 @@ public class mazeBoard {
         for (int rows = 0; rows < mazeBoardArray.length; rows++) {
             for (int cols = 0; cols < mazeBoardArray[rows].length; cols++) {
                 String[] surroundingCellArray = setSurroundingCellArray(rows, cols);
+                //System.out.println("1" + Arrays.toString(surroundingCellArray));
                 int oneCount = oneCountSurroundingCellArray(surroundingCellArray);
-                System.out.println("ONECOUNT" + oneCount);
+                while( oneCount > 2 ) {
+                    for(int i = 0 ; i<surroundingCellArray.length;i++) {
+                        String mergedNumber = Integer.toString(rows) + Integer.toString(cols);
+                        if((!unchangeableWalls.contains(surroundingCellArray[i]) || (!unchangeableWalls.contains(mergedNumber)))) {
+                            mazeBoardArray[rows][cols] =0;
+                            surroundingCellArray = setSurroundingCellArray(rows, cols);
+                            System.out.println("oneCOUNT " + oneCount);
+                            oneCount = oneCountSurroundingCellArray(surroundingCellArray);
+                            System.out.println("oneCOUNT2 " + oneCount);
+                        }
+                    }
+                }
             }
         }
 
@@ -115,14 +128,14 @@ public class mazeBoard {
     public String[] setSurroundingCellArray(int row, int col) {
         String[] surroundingCellArray = new String[4];
 
-        String inputCell = String.valueOf(row)+String.valueOf(col);
+        //String inputCell = String.valueOf(row)+String.valueOf(col);
         String topCell =  String.valueOf(row-1)+String.valueOf(col);
         String bottomCell =  String.valueOf(row+1)+String.valueOf(col);
         String leftCell =  String.valueOf(row)+String.valueOf(col-1);
         String rightCell =  String.valueOf(row)+String.valueOf(col+1);
 
-        String mergedNumberString = String.valueOf(row)+String.valueOf(col);
-        int mergedNumberInt = Integer.parseInt(mergedNumberString);
+        //String mergedNumberString = String.valueOf(row)+String.valueOf(col);
+        //int mergedNumberInt = Integer.parseInt(mergedNumberString);
 
         surroundingCellArray[0] = topCell;
         surroundingCellArray[1] = rightCell ;
@@ -140,20 +153,33 @@ public class mazeBoard {
         return surroundingCellArray;
     }
 
+    public String[] createValidSurroundingCellArray(String[] surroundingCellArray) {
+        for(int i = 0; i<surroundingCellArray.length;i++) {
+            if (surroundingCellArray[i].contains("-")) {
+
+            }
+        }
+    }
+
     public int oneCountSurroundingCellArray(String[] surroundingCellArray) {
         int oneCount = 0;
+        int row = 0;
+        int col = 0;
 
         for(int i = 0;i<surroundingCellArray.length;i++ ) {
-            System.out.println(surroundingCellArray[i]);
+            //System.out.println("HERE " + surroundingCellArray[i]);
         }
 
         for(int i = 0; i<surroundingCellArray.length; i++) {
             //int row = surroundingCellArray[i].charAt(0);
             //int col = surroundingCellArray[i].charAt(1);
-            int row = Integer.parseInt(surroundingCellArray[0]);
-            int col = Integer.parseInt(surroundingCellArray[1]);
-            System.out.println("ROW " + row );
-            System.out.println("COL " + col );
+            if(surroundingCellArray[i].contains("-")) {
+                continue;
+            }
+            else {
+                row = Character.getNumericValue(surroundingCellArray[i].charAt(0));
+                col = Character.getNumericValue(surroundingCellArray[i].charAt(1));
+            }
             if(mazeBoardArray[row][col] == 1 ) {
                 oneCount++;
             }
