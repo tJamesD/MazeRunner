@@ -5,14 +5,9 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         mazeBoard maze = new mazeBoard(10,10);
-        maze.createEntranceExit();
+        System.out.println("+++++++++++++++++++");
         maze.printMazeBoardArrayOneZero();
         maze.printMazeBoardArrayWalls();
-        maze.createUnChangeableWallArray();
-        maze.scanArrayForOneCount();
-        maze.printMazeBoardArrayOneZero();
-        maze.printMazeBoardArrayWalls();
-        System.out.println("HERE");
         //System.out.println(maze.createUnChangeableWallArray().toString());
 
         //String[] temp = maze.setSurroundingCellArray(0,0);

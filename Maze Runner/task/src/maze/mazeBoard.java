@@ -20,6 +20,10 @@ public class mazeBoard {
         baseRow = row;
         baseCol = col;
         fillArrayOneZero();
+        printMazeBoardArrayOneZero();
+        createEntranceExit();
+        createUnChangeableWallArray();
+        updateArrayBasedOnOneCount();
         //fillArrayAllOnes();
     }
 
@@ -37,22 +41,30 @@ public class mazeBoard {
         }
     }
 
-    public void scanArrayForOneCount() {
+    public void updateArrayBasedOnOneCount() {
         for (int rows = 0; rows < mazeBoardArray.length; rows++) {
             for (int cols = 0; cols < mazeBoardArray[rows].length; cols++) {
                 String[] surroundingCellArray = setSurroundingCellArray(rows, cols);
+                String[] validCellArray = createValidSurroundingCellArray(surroundingCellArray);
+                validCellArray[0] = "-100";
+                System.out.println("SURROUND " + Arrays.toString(surroundingCellArray));
+                System.out.println("VALID " + Arrays.toString(validCellArray));
+
                 //System.out.println("1" + Arrays.toString(surroundingCellArray));
-                int oneCount = oneCountSurroundingCellArray(surroundingCellArray);
+                int oneCount = oneCountSurroundingCellArray(validCellArray);
                 while( oneCount > 2 ) {
-                    for(int i = 0 ; i<surroundingCellArray.length;i++) {
-                        String mergedNumber = Integer.toString(rows) + Integer.toString(cols);
-                        if((!unchangeableWalls.contains(surroundingCellArray[i]) || (!unchangeableWalls.contains(mergedNumber)))) {
-                            mazeBoardArray[rows][cols] =0;
+                    for(int i = 0 ; i<validCellArray.length;i++) {
+                        if((!validCellArray[i].equals("-1"))||(!validCellArray[i].equals("-2"))){
+                            int row = Character.getNumericValue(validCellArray[i].charAt(0));
+                            int col = Character.getNumericValue(validCellArray[i].charAt(1));
+                            System.out.println("ROW " + row + "COL " + col);
+                            mazeBoardArray[row][col] = 0;
                             surroundingCellArray = setSurroundingCellArray(rows, cols);
-                            System.out.println("oneCOUNT " + oneCount);
-                            oneCount = oneCountSurroundingCellArray(surroundingCellArray);
-                            System.out.println("oneCOUNT2 " + oneCount);
+                            validCellArray = createValidSurroundingCellArray(surroundingCellArray);
+                            oneCount = oneCountSurroundingCellArray(validCellArray);
+
                         }
+
                     }
                 }
             }
@@ -154,11 +166,24 @@ public class mazeBoard {
     }
 
     public String[] createValidSurroundingCellArray(String[] surroundingCellArray) {
-        for(int i = 0; i<surroundingCellArray.length;i++) {
-            if (surroundingCellArray[i].contains("-")) {
-
+        String[] validArray = surroundingCellArray;
+        for(int i = 0; i<validArray.length;i++) {
+            if (validArray[i].contains("-")) {
+                validArray[i] = "-1";
+                continue;
             }
+            if(unchangeableWalls.contains(validArray[i])) {
+                validArray[i] = "-2";
+                continue;
+            }
+            int baseInt = Integer.parseInt(validArray[i]);
+            if(baseInt >= mazeBoardArray.length*10 ) {
+                validArray[i] = "-1";
+            }
+
+
         }
+        return validArray;
     }
 
     public int oneCountSurroundingCellArray(String[] surroundingCellArray) {
@@ -166,14 +191,12 @@ public class mazeBoard {
         int row = 0;
         int col = 0;
 
-        for(int i = 0;i<surroundingCellArray.length;i++ ) {
-            //System.out.println("HERE " + surroundingCellArray[i]);
-        }
-
         for(int i = 0; i<surroundingCellArray.length; i++) {
-            //int row = surroundingCellArray[i].charAt(0);
-            //int col = surroundingCellArray[i].charAt(1);
-            if(surroundingCellArray[i].contains("-")) {
+            if(surroundingCellArray[i].contains("-1")) {
+                continue;
+            }
+            if(surroundingCellArray[i].contains("-2")) {
+                oneCount++;
                 continue;
             }
             else {
@@ -183,6 +206,7 @@ public class mazeBoard {
             if(mazeBoardArray[row][col] == 1 ) {
                 oneCount++;
             }
+
         }
         return oneCount;
     }
