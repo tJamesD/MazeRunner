@@ -46,15 +46,17 @@ public class mazeBoard {
             for (int cols = 0; cols < mazeBoardArray[rows].length; cols++) {
                 String[] surroundingCellArray = setSurroundingCellArray(rows, cols);
                 String[] validCellArray = createValidSurroundingCellArray(surroundingCellArray);
-                validCellArray[0] = "-100";
-                System.out.println("SURROUND " + Arrays.toString(surroundingCellArray));
-                System.out.println("VALID " + Arrays.toString(validCellArray));
+                //validCellArray[0] = "-100";
+                //System.out.println("SURROUND " + Arrays.toString(surroundingCellArray));
+                //System.out.println("VALID " + Arrays.toString(validCellArray));
 
                 //System.out.println("1" + Arrays.toString(surroundingCellArray));
                 int oneCount = oneCountSurroundingCellArray(validCellArray);
                 while( oneCount > 2 ) {
                     for(int i = 0 ; i<validCellArray.length;i++) {
-                        if((!validCellArray[i].equals("-1"))||(!validCellArray[i].equals("-2"))){
+                        //System.out.println(!(validCellArray[i].equals("-1"))||!(validCellArray[i].equals("-2")));
+                        if(validCellArray[i] != "-1" && validCellArray[i] != "-2"){
+                            System.out.println(validCellArray[i]);
                             int row = Character.getNumericValue(validCellArray[i].charAt(0));
                             int col = Character.getNumericValue(validCellArray[i].charAt(1));
                             System.out.println("ROW " + row + "COL " + col);
@@ -135,6 +137,9 @@ public class mazeBoard {
             }
         }
         this.unchangeableWalls = unchangeableArrays;
+        for(String x: unchangeableArrays) {
+            System.out.println(x);
+        }
         return unchangeableArrays;
     }
     public String[] setSurroundingCellArray(int row, int col) {
@@ -166,7 +171,10 @@ public class mazeBoard {
     }
 
     public String[] createValidSurroundingCellArray(String[] surroundingCellArray) {
-        String[] validArray = surroundingCellArray;
+        String[] validArray = new String[4];
+        for (int i = 0; i<surroundingCellArray.length; i++) {
+            validArray[i] = surroundingCellArray[i];
+        }
         for(int i = 0; i<validArray.length;i++) {
             if (validArray[i].contains("-")) {
                 validArray[i] = "-1";
@@ -177,7 +185,8 @@ public class mazeBoard {
                 continue;
             }
             int baseInt = Integer.parseInt(validArray[i]);
-            if(baseInt >= mazeBoardArray.length*10 ) {
+            if(validArray[i].length()>2) {
+            //if(baseInt >= mazeBoardArray.length*10 ) {
                 validArray[i] = "-1";
             }
 
