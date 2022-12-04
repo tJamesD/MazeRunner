@@ -184,9 +184,7 @@ public class mazeBoard {
                 validArray[i] = "-2";
                 continue;
             }
-            int baseInt = Integer.parseInt(validArray[i]);
             if(validArray[i].length()>2) {
-            //if(baseInt >= mazeBoardArray.length*10 ) {
                 validArray[i] = "-1";
             }
 
