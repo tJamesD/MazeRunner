@@ -230,5 +230,24 @@ public class mazeBoard {
         return verticalMaze;
     }
 
+    public String[] createValidSurroundingCellArrayForGraph(String[] surroundingCellArray) {
+        String[] validArray = new String[4];
+        for (int i = 0; i<surroundingCellArray.length; i++) {
+            validArray[i] = surroundingCellArray[i];
+        }
+        for(int i = 0; i<validArray.length;i++) {
+            if (validArray[i].contains("-")) {
+                validArray[i] = "-1";
+                continue;
+            }
+            if(validArray[i].length()>2) {
+                validArray[i] = "-1";
+            }
+
+
+        }
+        return validArray;
+    }
+
 
 }
