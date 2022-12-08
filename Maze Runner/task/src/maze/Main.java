@@ -16,8 +16,11 @@ public class Main {
 
         for (int rows = 0; rows < tempMazeBoard.length; rows ++ ) {
             for (int cols = 0; cols < tempMazeBoard[rows].length; cols++) {
-                graph.addVertex(rows, cols);
+
+                //graph.printMap();
+                //graph.printValues();
                 Vertex srcVertex = new Vertex(rows, cols);
+                graph.addVertex(srcVertex);
                 String[] initialCellArray = maze.setSurroundingCellArray(rows,cols);
                 String[] validCellArray = maze.createValidSurroundingCellArrayForGraph(initialCellArray);
                 for(int i = 0;i<validCellArray.length;i++) {
@@ -27,7 +30,9 @@ public class Main {
                         int weight = rand.nextInt(3)+1;
                         Vertex destVertex = new Vertex(vertexRow,vertexCol);
                         Edge tempEdge = new Edge(srcVertex,destVertex,weight);
-                        System.out.println("srcVertex " + srcVertex);
+                        tempEdge = graph.checkForExistingEdge(tempEdge);
+                        graph.populateAllEdgesArray(tempEdge);
+                        //System.out.println("srcVertex " + srcVertex);
                         graph.addEdge(tempEdge);
 
                     }

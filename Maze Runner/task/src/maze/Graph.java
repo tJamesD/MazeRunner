@@ -6,9 +6,13 @@ public class Graph {
     int vertices;
     //LinkedList<Edge>[] adjacencylist;
     //Vertex[][] vertexArray = new Vertex[100][100];
-    private Map<Vertex, ArrayList<Edge>> adjVertices;
+    private LinkedHashMap<Vertex, ArrayList<Edge>> adjVertices;
+
+    ArrayList<Edge> allEdgesArray;
+
     public Graph() {
         adjVertices = new LinkedHashMap<>();
+        allEdgesArray = new ArrayList<>();
         //this.vertices = vertices;
         //adjacencylist = new LinkedList[vertices];
         //for(int i = 0; i<vertices;i++) {
@@ -16,8 +20,8 @@ public class Graph {
         //}
     }
 
-    public void addVertex(int row, int col) {
-        adjVertices.putIfAbsent(new Vertex(row,col), new ArrayList<Edge>());
+    public void addVertex(Vertex vertex) {
+        adjVertices.putIfAbsent(vertex, new ArrayList<>());
     }
 
     public void removeVertex(String label) {
@@ -26,11 +30,25 @@ public class Graph {
         //adjVertices.remove(new Vertex(label));
     }
 
+    public void populateAllEdgesArray(Edge edge) {
+        //Edge tempEdge = checkForExistingEdge(edge);
+        allEdgesArray.add(edge);
+    }
+    public Edge checkForExistingEdge(Edge edge) {
+        for(Edge e : allEdgesArray) {
+            if(e.getLabel().equals(edge.dest.getLabel()+edge.src.getLabel()));
+            return e;
+        }
+        return edge;
+    }
+
     public void addEdge(Edge edge) {
         Vertex v1 = edge.getSrc();
         Vertex v2 = edge.getDest();
         System.out.print("V1 " + v1);
-        ArrayList<Edge> tempList = adjVertices.get(v1);
+        ArrayList<Edge> tempList = new ArrayList<>();
+        //tempList.add(edge);
+        tempList = adjVertices.get(v1);
         tempList.add(edge);
         //adjVertices.get(v1).add(edge);
         //adjVertices.get(v2).add(v1);
@@ -43,7 +61,11 @@ public class Graph {
     }
     public void printValues() {
         for(Vertex v:adjVertices.keySet()) {
-            System.out.println(adjVertices.get(v));
+            ArrayList<Edge> tempArray = adjVertices.get(v);
+            System.out.println();
+            for(Edge e:tempArray) {
+                System.out.print(e.getLabel() + " ");
+            }
         }
     }
 }
