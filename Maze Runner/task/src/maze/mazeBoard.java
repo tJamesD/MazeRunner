@@ -20,7 +20,7 @@ public class mazeBoard {
         baseRow = row;
         baseCol = col;
         fillArrayOneZero();
-        printMazeBoardArrayOneZero();
+        //printMazeBoardArrayOneZero();
         createEntranceExit();
         createUnChangeableWallArray();
         updateArrayBasedOnOneCount();
@@ -56,10 +56,10 @@ public class mazeBoard {
                     for(int i = 0 ; i<validCellArray.length;i++) {
                         //System.out.println(!(validCellArray[i].equals("-1"))||!(validCellArray[i].equals("-2")));
                         if(validCellArray[i] != "-1" && validCellArray[i] != "-2"){
-                            System.out.println(validCellArray[i]);
+                            //System.out.println(validCellArray[i]);
                             int row = Character.getNumericValue(validCellArray[i].charAt(0));
                             int col = Character.getNumericValue(validCellArray[i].charAt(1));
-                            System.out.println("ROW " + row + "COL " + col);
+                            //System.out.println("ROW " + row + "COL " + col);
                             mazeBoardArray[row][col] = 0;
                             surroundingCellArray = setSurroundingCellArray(rows, cols);
                             validCellArray = createValidSurroundingCellArray(surroundingCellArray);
@@ -137,9 +137,12 @@ public class mazeBoard {
             }
         }
         this.unchangeableWalls = unchangeableArrays;
+        /*
         for(String x: unchangeableArrays) {
             System.out.println(x);
         }
+
+         */
         return unchangeableArrays;
     }
     public String[] setSurroundingCellArray(int row, int col) {

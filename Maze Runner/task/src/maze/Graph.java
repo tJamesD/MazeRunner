@@ -36,8 +36,9 @@ public class Graph {
     }
     public Edge checkForExistingEdge(Edge edge) {
         for(Edge e : allEdgesArray) {
-            if(e.getLabel().equals(edge.dest.getLabel()+edge.src.getLabel()));
-            return e;
+            if (e.getLabel().equals(edge.dest.getLabel() + edge.src.getLabel())) {
+               return e;
+            }
         }
         return edge;
     }
@@ -45,7 +46,7 @@ public class Graph {
     public void addEdge(Edge edge) {
         Vertex v1 = edge.getSrc();
         Vertex v2 = edge.getDest();
-        System.out.print("V1 " + v1);
+        //System.out.print("V1 " + v1);
         ArrayList<Edge> tempList = new ArrayList<>();
         //tempList.add(edge);
         tempList = adjVertices.get(v1);

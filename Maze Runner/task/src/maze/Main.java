@@ -28,8 +28,15 @@ public class Main {
                         int vertexRow = Character.getNumericValue(validCellArray[i].charAt(0));
                         int vertexCol = Character.getNumericValue(validCellArray[i].charAt(1));
                         int weight = rand.nextInt(3)+1;
+
+
+
+
                         Vertex destVertex = new Vertex(vertexRow,vertexCol);
+                        //System.out.println("SRC " + srcVertex.getLabel());
+                        //System.out.println("DEST " + destVertex.getLabel());
                         Edge tempEdge = new Edge(srcVertex,destVertex,weight);
+                        //System.out.println("EDGE " + tempEdge.getLabel());
                         tempEdge = graph.checkForExistingEdge(tempEdge);
                         graph.populateAllEdgesArray(tempEdge);
                         //System.out.println("srcVertex " + srcVertex);
@@ -40,7 +47,7 @@ public class Main {
             }
         }
 
-        graph.printMap();
+        //graph.printMap();
         graph.printValues();
 
         //System.out.println(maze.createUnChangeableWallArray().toString());
