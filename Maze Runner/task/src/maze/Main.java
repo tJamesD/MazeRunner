@@ -1,5 +1,6 @@
 package maze;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -33,11 +34,12 @@ public class Main {
 
 
                         Vertex destVertex = new Vertex(vertexRow,vertexCol);
-                        //System.out.println("SRC " + srcVertex.getLabel());
-                        //System.out.println("DEST " + destVertex.getLabel());
+                        System.out.println("SRC " + srcVertex.getLabel());
+                        System.out.println("DEST " + destVertex.getLabel());
                         Edge tempEdge = new Edge(srcVertex,destVertex,weight);
-                        //System.out.println("EDGE " + tempEdge.getLabel());
+                        System.out.println("EDGE " + tempEdge.getLabel());
                         tempEdge = graph.checkForExistingEdge(tempEdge);
+                        System.out.println("EDGEAFTERCHECK " + tempEdge.getLabel());
                         graph.populateAllEdgesArray(tempEdge);
                         //System.out.println("srcVertex " + srcVertex);
                         graph.addEdge(tempEdge);
@@ -49,6 +51,11 @@ public class Main {
 
         //graph.printMap();
         graph.printValues();
+        ArrayList<Edge> tempArray = graph.getEdgeArray();
+
+        for(Edge e : tempArray ) {
+            System.out.println(e.getLabel());
+        }
 
         //System.out.println(maze.createUnChangeableWallArray().toString());
 

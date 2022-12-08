@@ -69,4 +69,8 @@ public class Graph {
             }
         }
     }
+
+    public ArrayList<Edge> getEdgeArray() {
+        return allEdgesArray;
+    }
 }
