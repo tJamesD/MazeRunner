@@ -17,21 +17,18 @@ public class Main {
 
         for (int rows = 0; rows < tempMazeBoard.length; rows ++ ) {
             for (int cols = 0; cols < tempMazeBoard[rows].length; cols++) {
-
                 //graph.printMap();
                 //graph.printValues();
                 Vertex srcVertex = new Vertex(rows, cols);
                 graph.addVertex(srcVertex);
                 String[] initialCellArray = maze.setSurroundingCellArray(rows,cols);
                 String[] validCellArray = maze.createValidSurroundingCellArrayForGraph(initialCellArray);
+                System.out.println(Arrays.toString(validCellArray));
                 for(int i = 0;i<validCellArray.length;i++) {
-                    if(!validCellArray[i].equals("-1")) {
+                    if((!validCellArray[i].equals("-1")) && (!validCellArray[i].equals("-2"))) {
                         int vertexRow = Character.getNumericValue(validCellArray[i].charAt(0));
                         int vertexCol = Character.getNumericValue(validCellArray[i].charAt(1));
                         int weight = rand.nextInt(3)+1;
-
-
-
 
                         Vertex destVertex = new Vertex(vertexRow,vertexCol);
                         System.out.println("SRC " + srcVertex.getLabel());
@@ -40,8 +37,17 @@ public class Main {
                         System.out.println("EDGE " + tempEdge.getLabel());
                         tempEdge = graph.checkForExistingEdge(tempEdge);
                         System.out.println("EDGEAFTERCHECK " + tempEdge.getLabel());
-                        graph.populateAllEdgesArray(tempEdge);
+
                         //System.out.println("srcVertex " + srcVertex);
+                       /*
+                        if(!graph.returnBooleanForExistingEdge(tempEdge)) {
+                            graph.populateAllEdgesArray(tempEdge);
+                            graph.addEdge(tempEdge);
+                        }
+
+
+                        */
+                        graph.populateAllEdgesArray(tempEdge);
                         graph.addEdge(tempEdge);
 
                     }

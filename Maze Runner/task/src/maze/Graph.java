@@ -31,26 +31,45 @@ public class Graph {
     }
 
     public void populateAllEdgesArray(Edge edge) {
-        //Edge tempEdge = checkForExistingEdge(edge);
-        allEdgesArray.add(edge);
+        Edge tempEdge = new Edge(edge.src,edge.dest, edge.weight);
+        allEdgesArray.add(tempEdge);
     }
     public Edge checkForExistingEdge(Edge edge) {
         for(Edge e : allEdgesArray) {
-            if (e.getLabel().equals(edge.dest.getLabel() + edge.src.getLabel())) {
+            if ((e.getLabel().equals(edge.dest.getLabel() + edge.src.getLabel()))|| e.getLabel().equals(edge.getLabel())) {
                return e;
             }
         }
         return edge;
     }
 
+    public boolean returnBooleanForExistingEdge(Edge edge) {
+        for(Edge e : allEdgesArray) {
+            if ((e.getLabel().equals(edge.dest.getLabel() + edge.src.getLabel()))|| e.getLabel().equals(edge.getLabel())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addEdge(Edge edge) {
-        Vertex v1 = edge.getSrc();
-        Vertex v2 = edge.getDest();
+
+        Vertex v1;
+
+        if(returnBooleanForExistingEdge(edge)) {
+             v1 = edge.getSrc();
+        }
+        else {
+             v1 = edge.getDest();
+        }
+
         //System.out.print("V1 " + v1);
         ArrayList<Edge> tempList = new ArrayList<>();
         //tempList.add(edge);
         tempList = adjVertices.get(v1);
-        tempList.add(edge);
+        if(!tempList.contains(edge)) {
+            tempList.add(edge);
+        }
         //adjVertices.get(v1).add(edge);
         //adjVertices.get(v2).add(v1);
     }
@@ -64,6 +83,7 @@ public class Graph {
         for(Vertex v:adjVertices.keySet()) {
             ArrayList<Edge> tempArray = adjVertices.get(v);
             System.out.println();
+            System.out.print("MAIN VErTEX "+v.getLabel() + " ");
             for(Edge e:tempArray) {
                 System.out.print(e.getLabel() + " ");
             }
