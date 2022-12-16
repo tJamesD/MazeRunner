@@ -34,7 +34,9 @@ public class Main {
                         System.out.println("SRC " + srcVertex.getLabel());
                         System.out.println("DEST " + destVertex.getLabel());
                         Edge tempEdge = new Edge(srcVertex,destVertex,weight);
+                        Edge reverseEdge = new Edge(destVertex,srcVertex,weight);
                         System.out.println("EDGE " + tempEdge.getLabel());
+                        boolean swappedEdge = graph.returnBooleanForExistingEdge(tempEdge);
                         tempEdge = graph.checkForExistingEdge(tempEdge);
                         System.out.println("EDGEAFTERCHECK " + tempEdge.getLabel());
 

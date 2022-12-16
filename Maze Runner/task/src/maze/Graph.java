@@ -43,6 +43,15 @@ public class Graph {
         return edge;
     }
 
+    public Edge checkForExistingEdgeTwoEdges(Edge edge1, Edge edge2) {
+        for(Edge e : allEdgesArray) {
+            if ((e.getLabel().equals(edge1.getLabel()))|| e.getLabel().equals(edge2.getLabel())) {
+                return e;
+            }
+        }
+        return edge2;
+    }
+
     public boolean returnBooleanForExistingEdge(Edge edge) {
         for(Edge e : allEdgesArray) {
             if ((e.getLabel().equals(edge.dest.getLabel() + edge.src.getLabel()))|| e.getLabel().equals(edge.getLabel())) {
