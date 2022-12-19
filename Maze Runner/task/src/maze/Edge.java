@@ -26,8 +26,16 @@ public class Edge {
         return label;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Edge edge = (Edge) o;
+        return weight == edge.weight && src.equals(edge.src) && dest.equals(edge.dest) && label.equals(edge.label);
+    }
+
+    @Override
     public int hashCode() {
-        return Objects.hash(src,dest,weight,label);
-        //return Objects.hashCode(this);
+        return Objects.hash(src, dest, weight, label);
     }
 }
