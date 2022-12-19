@@ -24,6 +24,10 @@ public class Graph {
         adjVertices.putIfAbsent(vertex, new ArrayList<>());
     }
 
+    public ArrayList<Edge> getValues(Vertex v1) {
+        return adjVertices.get(v1);
+    }
+
     public void removeVertex(String label) {
         //Vertex v= new Vertex(label);
         //adjVertices.values().stream().forEach(e -> e.remove(v));
@@ -42,7 +46,23 @@ public class Graph {
         }
         return edge;
     }
+    public Edge checkForSwappedEdge(Edge edge) {
+        for(Edge e : allEdgesArray) {
+            if (e.getLabel().equals(edge.dest.getLabel() + edge.src.getLabel())) {
+                return e;
+            }
+        }
+        return edge;
+    }
 
+    public boolean returnBooleanCheckForSwappedEdge(Edge edge) {
+        for(Edge e : allEdgesArray) {
+            if (e.getLabel().equals(edge.dest.getLabel() + edge.src.getLabel())) {
+                return true;
+            }
+        }
+        return false;
+    }
     public Edge checkForExistingEdgeTwoEdges(Edge edge1, Edge edge2) {
         for(Edge e : allEdgesArray) {
             if ((e.getLabel().equals(edge1.getLabel()))|| e.getLabel().equals(edge2.getLabel())) {
@@ -54,30 +74,37 @@ public class Graph {
 
     public boolean returnBooleanForExistingEdge(Edge edge) {
         for(Edge e : allEdgesArray) {
-            if ((e.getLabel().equals(edge.dest.getLabel() + edge.src.getLabel()))|| e.getLabel().equals(edge.getLabel())) {
+            if (e.getLabel().equals(edge.getLabel())) {
                 return true;
             }
         }
         return false;
     }
 
-    public void addEdge(Edge edge) {
+    public void addEdge(Edge edge, boolean swappedEdge) {
 
         Vertex v1;
 
-        if(returnBooleanForExistingEdge(edge)) {
-             v1 = edge.getSrc();
+        if(swappedEdge) {
+            v1 = edge.getDest();
         }
         else {
-             v1 = edge.getDest();
+            v1 = edge.getSrc();
         }
+
+        System.out.println("INMETHOD HASHCODE " + v1.hashCode());
 
         //System.out.print("V1 " + v1);
         ArrayList<Edge> tempList = new ArrayList<>();
         //tempList.add(edge);
         tempList = adjVertices.get(v1);
-        if(!tempList.contains(edge)) {
-            tempList.add(edge);
+
+
+
+        tempList.add(edge);
+        for(Edge e: tempList) {
+            System.out.println("HI " + e.getLabel());
+            //System.out.println("HI");
         }
         //adjVertices.get(v1).add(edge);
         //adjVertices.get(v2).add(v1);

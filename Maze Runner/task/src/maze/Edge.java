@@ -1,5 +1,7 @@
 package maze;
 
+import java.util.Objects;
+
 public class Edge {
     Vertex src, dest;
     int weight;
@@ -22,5 +24,10 @@ public class Edge {
 
     public String getLabel() {
         return label;
+    }
+
+    public int hashCode() {
+        return Objects.hash(src,dest,weight,label);
+        //return Objects.hashCode(this);
     }
 }

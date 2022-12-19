@@ -31,14 +31,36 @@ public class Main {
                         int weight = rand.nextInt(3)+1;
 
                         Vertex destVertex = new Vertex(vertexRow,vertexCol);
+                        graph.addVertex(destVertex);
                         System.out.println("SRC " + srcVertex.getLabel());
+                        System.out.println("SRC HASHCODE " + srcVertex.hashCode());
                         System.out.println("DEST " + destVertex.getLabel());
+                        System.out.println("DEST HASHCODE " + destVertex.hashCode());
                         Edge tempEdge = new Edge(srcVertex,destVertex,weight);
-                        Edge reverseEdge = new Edge(destVertex,srcVertex,weight);
+                        System.out.println("EDGE HASHCODE " + tempEdge.hashCode());
+                        //Edge reverseEdge = new Edge(destVertex,srcVertex,weight);
                         System.out.println("EDGE " + tempEdge.getLabel());
-                        boolean swappedEdge = graph.returnBooleanForExistingEdge(tempEdge);
-                        tempEdge = graph.checkForExistingEdge(tempEdge);
-                        System.out.println("EDGEAFTERCHECK " + tempEdge.getLabel());
+                        System.out.println("EDGE WEIGHT " + tempEdge.weight);
+
+                        boolean swappedEdge = graph.returnBooleanCheckForSwappedEdge(tempEdge);
+                        System.out.println("SWAPPEDEDGEBOOLEAN " + swappedEdge);
+                        if(swappedEdge) {
+                            System.out.println("TEMP EDGE PRESWAP " + tempEdge.getLabel());
+                            tempEdge = graph.checkForExistingEdge(tempEdge);
+                            System.out.println("HASHCODE " + tempEdge.hashCode());
+                            System.out.println("EDGEAFTERCHECK " + tempEdge.getLabel());
+                            System.out.println("EDGE WEIGHT " + tempEdge.weight);
+                            System.out.println("SRC " + tempEdge.getSrc() + " DEST " + tempEdge.getDest());
+
+                            graph.addEdge(tempEdge,swappedEdge);
+                        }
+                        else {
+                            System.out.println("HASHCODE " + tempEdge.hashCode());
+                            graph.addEdge(tempEdge,swappedEdge);
+
+                            graph.populateAllEdgesArray(tempEdge);
+                        }
+
 
                         //System.out.println("srcVertex " + srcVertex);
                        /*
@@ -49,8 +71,8 @@ public class Main {
 
 
                         */
-                        graph.populateAllEdgesArray(tempEdge);
-                        graph.addEdge(tempEdge);
+
+                        //graph.addEdge(tempEdge,swappedEdge);
 
                     }
                 }

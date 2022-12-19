@@ -1,5 +1,6 @@
 package maze;
 
+import java.util.Objects;
 import java.util.Random;
 
 public class Vertex {
@@ -19,5 +20,9 @@ public class Vertex {
     }
     public String getLabel() {
         return label;
+    }
+
+    public int hashCode() {
+        return Objects.hash(row,col,label);
     }
 }
