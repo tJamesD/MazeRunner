@@ -124,6 +124,7 @@ public class Graph {
                 System.out.print(e.getLabel() + " ");
             }
         }
+        System.out.println();
     }
 
     public ArrayList<Edge> getEdgeArray() {

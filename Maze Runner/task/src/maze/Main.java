@@ -53,11 +53,13 @@ public class Main {
                             System.out.println("SRC " + tempEdge.getSrc() + " DEST " + tempEdge.getDest());
 
                             graph.addEdge(tempEdge,swappedEdge);
+                            System.out.println("EDGE ADDED" + tempEdge.getLabel());
                         }
                         else {
                             System.out.println("HASHCODE " + tempEdge.hashCode());
-                            graph.addEdge(tempEdge,swappedEdge);
 
+                            graph.addEdge(tempEdge,swappedEdge);
+                            System.out.println("EDGE ADDED" + tempEdge.getLabel());
                             graph.populateAllEdgesArray(tempEdge);
                         }
 
@@ -78,7 +80,7 @@ public class Main {
                 }
             }
         }
-
+        System.out.println();
         //graph.printMap();
         graph.printValues();
         ArrayList<Edge> tempArray = graph.getEdgeArray();
