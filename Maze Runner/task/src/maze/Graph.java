@@ -92,22 +92,14 @@ public class Graph {
             v1 = edge.getSrc();
         }
 
-        System.out.println("INMETHOD HASHCODE " + v1.hashCode());
-
-        //System.out.print("V1 " + v1);
         ArrayList<Edge> tempList = new ArrayList<>();
-        //tempList.add(edge);
+
         tempList = adjVertices.get(v1);
 
 
 
         tempList.add(edge);
-        for(Edge e: tempList) {
-            System.out.println("HI " + e.getLabel());
-            //System.out.println("HI");
-        }
-        //adjVertices.get(v1).add(edge);
-        //adjVertices.get(v2).add(v1);
+
     }
 
     public void printMap() {
@@ -125,6 +117,10 @@ public class Graph {
             }
         }
         System.out.println();
+    }
+
+    public LinkedHashMap<Vertex, ArrayList<Edge>> getAdjVertices() {
+        return adjVertices;
     }
 
     public ArrayList<Edge> getEdgeArray() {

@@ -7,10 +7,13 @@ public class Edge {
     int weight;
     String label;
 
+    boolean isVisted;
+
     public Edge(Vertex src, Vertex dest, int weight) {
         this.src = src;
         this.dest = dest;
         this.weight = weight;
+        this.isVisted = false;
         label = src.getLabel()+dest.getLabel();
     }
 
@@ -24,6 +27,14 @@ public class Edge {
 
     public String getLabel() {
         return label;
+    }
+
+    public void setVisted() {
+        isVisted = true;
+    }
+
+    public boolean getIsVisted() {
+        return isVisted;
     }
 
     @Override

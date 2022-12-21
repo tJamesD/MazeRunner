@@ -148,27 +148,18 @@ public class mazeBoard {
     public String[] setSurroundingCellArray(int row, int col) {
         String[] surroundingCellArray = new String[4];
 
-        //String inputCell = String.valueOf(row)+String.valueOf(col);
+
         String topCell =  String.valueOf(row-1)+String.valueOf(col);
         String bottomCell =  String.valueOf(row+1)+String.valueOf(col);
         String leftCell =  String.valueOf(row)+String.valueOf(col-1);
         String rightCell =  String.valueOf(row)+String.valueOf(col+1);
 
-        //String mergedNumberString = String.valueOf(row)+String.valueOf(col);
-        //int mergedNumberInt = Integer.parseInt(mergedNumberString);
 
         surroundingCellArray[0] = topCell;
         surroundingCellArray[1] = rightCell ;
         surroundingCellArray[2] = bottomCell;
         surroundingCellArray[3] = leftCell;
 
-        //System.out.println(mergedNumberString);
-        //System.out.println("INPUT " + inputCell );
-        //System.out.println("MERGED " +mergedNumberInt);
-        //System.out.println(topCell);
-        //System.out.println(rightCell);
-        //System.out.println(bottomCell);
-        //System.out.println(leftCell);
 
         return surroundingCellArray;
     }

@@ -8,6 +8,8 @@ public class Vertex {
     int row;
     int col;
 
+    boolean isVisted;
+
     //int weight;
 
     public Vertex(int row, int col) {
@@ -15,11 +17,20 @@ public class Vertex {
         this.row = row;
         this.col = col;
         this.label = Integer.toString(row) + Integer.toString(col);
+        this.isVisted = false;
         //this.weight = rand.nextInt(3)+1;
 
     }
     public String getLabel() {
         return label;
+    }
+
+    public boolean getIsVisted() {
+        return isVisted;
+    }
+
+    public void setVisted() {
+        isVisted = true;
     }
 
     @Override
