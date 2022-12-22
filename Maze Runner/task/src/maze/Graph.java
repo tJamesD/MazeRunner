@@ -1,5 +1,6 @@
 package maze;
 
+import java.sql.Array;
 import java.util.*;
 
 public class Graph {
@@ -125,5 +126,31 @@ public class Graph {
 
     public ArrayList<Edge> getEdgeArray() {
         return allEdgesArray;
+    }
+
+    public ArrayList<Vertex> createSpanningTree() {
+        ArrayList<Vertex> treeArray = new ArrayList<>();
+        Random rand = new Random();
+        int row = 0;
+        int col = 0;
+
+        Vertex v = new Vertex(row, col);
+        ArrayList<Edge> tempList = adjVertices.get(v);
+
+        v.setVisted();
+        Edge minEdge = tempList.get(0);
+        for(Edge e: tempList) {
+            if(e.getWeight()< minEdge.getWeight()) {
+                minEdge = e;
+            }
+            else {
+                int randomNumber = rand.nextInt(tempList.size());
+                minEdge = tempList.get(randomNumber);
+            }
+        }
+
+
+
+        return treeArray;
     }
 }

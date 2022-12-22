@@ -29,6 +29,10 @@ public class Edge {
         return label;
     }
 
+    public int getWeight() {
+        return weight;
+    }
+
     public void setVisted() {
         isVisted = true;
     }

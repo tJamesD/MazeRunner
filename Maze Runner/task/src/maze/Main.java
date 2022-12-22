@@ -57,12 +57,14 @@ public class Main {
             }
         }
         //graph.printMap();
-        //graph.printValues();
+        graph.printValues();
         ArrayList<Edge> tempArray = graph.getEdgeArray();
 
         for (Edge e : tempArray) {
             //System.out.println(e.getLabel());
         }
+
+        graph.createSpanningTree();
 
         //System.out.println(maze.createUnChangeableWallArray().toString());
 
