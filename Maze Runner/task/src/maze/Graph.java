@@ -8,12 +8,16 @@ public class Graph {
     //LinkedList<Edge>[] adjacencylist;
     //Vertex[][] vertexArray = new Vertex[100][100];
     private LinkedHashMap<Vertex, ArrayList<Edge>> adjVertices;
+    ArrayList<Vertex> spanningTreeVertexArray;
+    ArrayList<Edge> spanningTreeEdgeArray;
 
     ArrayList<Edge> allEdgesArray;
 
     public Graph() {
         adjVertices = new LinkedHashMap<>();
         allEdgesArray = new ArrayList<>();
+        spanningTreeVertexArray = new ArrayList<>();
+        spanningTreeEdgeArray = new ArrayList<>();
         //this.vertices = vertices;
         //adjacencylist = new LinkedList[vertices];
         //for(int i = 0; i<vertices;i++) {
@@ -131,15 +135,55 @@ public class Graph {
     public ArrayList<Vertex> createSpanningTree() {
         ArrayList<Vertex> treeArray = new ArrayList<>();
         Random rand = new Random();
+
         int row = 0;
         int col = 0;
 
         Vertex v = new Vertex(row, col);
-        ArrayList<Edge> tempList = adjVertices.get(v);
 
-        v.setVisted();
-        Edge minEdge = tempList.get(0);
-        for(Edge e: tempList) {
+        while(!allVisted()) {
+
+
+            ArrayList<Edge> tempList = adjVertices.get(v);
+
+            v.setVisted();
+            spanningTreeVertexArray.add(v);
+
+            Edge minEdge = pickMinOrRandomEdge(tempList,rand);
+            minEdge.setVisted();
+
+            v = pickNewVertex(minEdge);
+
+
+        }
+
+
+
+
+
+
+
+        return treeArray;
+    }
+
+    public Vertex pickNewVertex(Edge edge) {
+        Vertex srcVertex = edge.getSrc();
+        Vertex destVertex = edge.getDest();
+
+        if(destVertex.getIsVisted()) {
+            return srcVertex;
+        }
+        return destVertex;
+    }
+
+    public Edge pickMinOrRandomEdge(ArrayList<Edge> tempList, Random rand) {
+        ArrayList<Edge> unChosenList = returnOnlyUnchosenEdges(tempList);
+
+
+        Edge minEdge = unChosenList.get(0);
+
+
+        for(Edge e: unChosenList) {
             if(e.getWeight()< minEdge.getWeight()) {
                 minEdge = e;
             }
@@ -148,9 +192,37 @@ public class Graph {
                 minEdge = tempList.get(randomNumber);
             }
         }
+        return minEdge;
+    }
 
+    public boolean allVisted() {
+        for(Vertex v : adjVertices.keySet()) {
+            if(!v.getIsVisted()) {
+                return false;
+            }
 
+        }
+        return true;
+    }
 
-        return treeArray;
+    public ArrayList<Edge> returnOnlyUnchosenEdges(ArrayList<Edge> tempList) {
+        ArrayList<Edge> unChosenList = new ArrayList<>();
+
+        for(Edge e : tempList) {
+            if(!e.getIsVisted()){
+                unChosenList.add(e);
+            }
+        }
+
+        for(Edge e : unChosenList) {
+            System.out.println(e.getLabel());
+        }
+        System.out.println();
+
+        return unChosenList;
+    }
+
+    public ArrayList<Vertex> getSpanningTreeVertexArray() {
+        return spanningTreeVertexArray;
     }
 }

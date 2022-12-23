@@ -56,8 +56,16 @@ public class Main {
                 }
             }
         }
+
+        graph.createSpanningTree();
+        ArrayList<Vertex> tempList1 = graph.getSpanningTreeVertexArray();
+
+        for(Vertex v : tempList1) {
+            System.out.println(v.getLabel());
+        }
+
         //graph.printMap();
-        graph.printValues();
+        //graph.printValues();
         ArrayList<Edge> tempArray = graph.getEdgeArray();
 
         for (Edge e : tempArray) {
