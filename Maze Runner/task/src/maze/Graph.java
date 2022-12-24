@@ -141,19 +141,30 @@ public class Graph {
 
         Vertex v = new Vertex(row, col);
 
+        System.out.println("ACTIVE VERTEX " + v.getLabel());
+
         while(!allVisted()) {
 
 
             ArrayList<Edge> tempList = adjVertices.get(v);
 
             v.setVisted();
+            System.out.println( "ACTIVE VERTEX1 " + v.getLabel());
+            System.out.println("v vist check " + v.getIsVisted());
             spanningTreeVertexArray.add(v);
 
             Edge minEdge = pickMinOrRandomEdge(tempList,rand);
+
+            System.out.println("EDGEPICKED " + minEdge.getLabel() );
+
             minEdge.setVisted();
 
+            v.setVisted();
             v = pickNewVertex(minEdge);
+            v.setVisted();
 
+            System.out.println( "ACTIVE VERTEX2 " + v.getLabel());
+            System.out.println("v vist check2 " + v.getIsVisted());
 
         }
 
@@ -180,7 +191,7 @@ public class Graph {
         ArrayList<Edge> unChosenList = returnOnlyUnchosenEdges(tempList);
 
 
-        Edge minEdge = unChosenList.get(0);
+            Edge minEdge = unChosenList.get(0);
 
 
         for(Edge e: unChosenList) {
