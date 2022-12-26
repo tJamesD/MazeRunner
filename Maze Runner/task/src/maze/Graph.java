@@ -12,12 +12,16 @@ public class Graph {
     ArrayList<Edge> spanningTreeEdgeArray;
 
     ArrayList<Edge> allEdgesArray;
+    ArrayList<Edge> usedEdgesArray;
+    ArrayList<Edge> availableEdgesArray;
 
     public Graph() {
         adjVertices = new LinkedHashMap<>();
         allEdgesArray = new ArrayList<>();
         spanningTreeVertexArray = new ArrayList<>();
         spanningTreeEdgeArray = new ArrayList<>();
+        usedEdgesArray = new ArrayList<>();
+        availableEdgesArray = new ArrayList<>();
         //this.vertices = vertices;
         //adjacencylist = new LinkedList[vertices];
         //for(int i = 0; i<vertices;i++) {
@@ -147,6 +151,9 @@ public class Graph {
 
 
             ArrayList<Edge> tempList = adjVertices.get(v);
+            for (Edge e: tempList) {
+                availableEdgesArray.add(e);
+            }
 
             v.setVisted();
             System.out.println( "ACTIVE VERTEX1 " + v.getLabel());
