@@ -152,6 +152,7 @@ public class Graph {
 
             ArrayList<Edge> tempList = adjVertices.get(v);
             for (Edge e: tempList) {
+                if(availableEdgesArray.contains(e))
                 availableEdgesArray.add(e);
             }
 
@@ -161,6 +162,7 @@ public class Graph {
             spanningTreeVertexArray.add(v);
 
             Edge minEdge = pickMinOrRandomEdge(tempList,rand);
+
 
             System.out.println("EDGEPICKED " + minEdge.getLabel() );
 
