@@ -2,6 +2,7 @@ package maze;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.Random;
 
 public class Main {
@@ -14,7 +15,7 @@ public class Main {
         maze.printMazeBoardArrayWalls();
 
         int[][] tempMazeBoard = maze.getMazeBoardArray();
-
+        //loop to populate adjacency list.
         for (int rows = 0; rows < tempMazeBoard.length; rows++) {
             for (int cols = 0; cols < tempMazeBoard[rows].length; cols++) {
                 //graph.printMap();
@@ -57,34 +58,49 @@ public class Main {
             }
         }
 
-        graph.createSpanningTree();
-        ArrayList<Vertex> tempList1 = graph.getSpanningTreeVertexArray();
 
-        for(Vertex v : tempList1) {
-            System.out.println(v.getLabel());
-        }
 
         //graph.printMap();
-        //graph.printValues();
-        ArrayList<Edge> tempArray = graph.getEdgeArray();
+        graph.printValues();
+        graph.findMatchEdge("0001");
 
-        for (Edge e : tempArray) {
-            //System.out.println(e.getLabel());
+        LinkedHashMap<Vertex,ArrayList<Edge>> tempList = graph.getAdjVerticesHashMap();
+        Vertex tempVertex1 = new Vertex(0,0);
+        Vertex tempVertex2 = new Vertex(0,1);
+        ArrayList<Edge> tempVertexList = tempList.get(tempVertex1);
+        ArrayList<Edge> tempVertexList2 = tempList.get(tempVertex2);
+
+        Edge tempEdge = new Edge(tempVertex1,tempVertex2, 0);
+        Edge tempEdge2 = new Edge(tempVertex1,tempVertex2, 0);
+
+        for(Edge e: tempVertexList) {
+            if (e.getLabel().equals("0001")) {
+                System.out.println(e.getAvailable());
+                System.out.println(e.getIsVisted());
+            }
         }
 
-        graph.createSpanningTree();
+        for(Edge e: tempVertexList2) {
+            if(e.getLabel().equals("0001")) {
+                System.out.println(e.getAvailable());
+                System.out.println(e.getIsVisted());
+            }
+        }
 
-        //System.out.println(maze.createUnChangeableWallArray().toString());
+        //tempEdge.setAvailable();
+        //tempEdge.setVisted();
 
-        //String[] temp = maze.setSurroundingCellArray(0,0);
+        //System.out.println(tempEdge2.getAvailable());
+        //System.out.println(tempEdge2.getIsVisted());
+        //System.out.println(tempEdge.getAvailable());
+        //System.out.println(tempEdge.getIsVisted());
 
-        //for(int i = 0; i <temp.length; i++) {
-        //  System.out.println(temp[i]);
-        //}
 
 
-        //System.out.println(maze.getHorizontalMaze());
-        //System.out.println(maze.getVerticalMaze());
+
+
+
+
 
     }
 }

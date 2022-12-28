@@ -151,17 +151,15 @@ public class Graph {
 
 
             ArrayList<Edge> tempList = adjVertices.get(v);
-            for (Edge e: tempList) {
-                if(availableEdgesArray.contains(e))
-                availableEdgesArray.add(e);
-            }
+            populateAvailableEdgesArray(tempList);
+
 
             v.setVisted();
             System.out.println( "ACTIVE VERTEX1 " + v.getLabel());
             System.out.println("v vist check " + v.getIsVisted());
             spanningTreeVertexArray.add(v);
 
-            Edge minEdge = pickMinOrRandomEdge(tempList,rand);
+            Edge minEdge = pickMinOrRandomEdge(availableEdgesArray,rand);
 
 
             System.out.println("EDGEPICKED " + minEdge.getLabel() );
@@ -204,13 +202,15 @@ public class Graph {
 
 
         for(Edge e: unChosenList) {
-            if(e.getWeight()< minEdge.getWeight()) {
+            if(e.getWeight()< minEdge.getWeight()&&e.getAvailable()) {
                 minEdge = e;
             }
             else {
                 int randomNumber = rand.nextInt(tempList.size());
                 minEdge = tempList.get(randomNumber);
             }
+            e.setAvailable();
+            minEdge.setAvailable();
         }
         return minEdge;
     }
@@ -229,7 +229,7 @@ public class Graph {
         ArrayList<Edge> unChosenList = new ArrayList<>();
 
         for(Edge e : tempList) {
-            if(!e.getIsVisted()){
+            if((!e.getIsVisted()) && (!e.getDest().getIsVisted())){
                 unChosenList.add(e);
             }
         }
@@ -242,7 +242,35 @@ public class Graph {
         return unChosenList;
     }
 
+    public void populateAvailableEdgesArray(ArrayList<Edge> tempList) {
+        for(Edge e : tempList) {
+            //String label = e.getLabel();
+            if((!availableEdgesArray.contains(e)) && (e.getAvailable())) {
+                availableEdgesArray.add(e);
+            }
+        }
+    }
+
+    public void findMatchEdge(String label) {
+        for(Vertex v : adjVertices.keySet()) {
+            ArrayList<Edge> tempList = adjVertices.get(v);
+
+            for(Edge e: tempList) {
+                if(e.getLabel().equals(label)) {
+                    e.setVisted();
+                    e.setAvailable();
+                }
+            }
+
+        }
+    }
+
+
     public ArrayList<Vertex> getSpanningTreeVertexArray() {
         return spanningTreeVertexArray;
+    }
+
+    public LinkedHashMap<Vertex,ArrayList<Edge>> getAdjVerticesHashMap() {
+        return adjVertices;
     }
 }

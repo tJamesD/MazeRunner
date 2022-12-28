@@ -8,12 +8,14 @@ public class Edge {
     String label;
 
     boolean isVisted;
+    boolean isAvailable;
 
     public Edge(Vertex src, Vertex dest, int weight) {
         this.src = src;
         this.dest = dest;
         this.weight = weight;
         this.isVisted = false;
+        this.isAvailable = true;
         label = src.getLabel()+dest.getLabel();
     }
 
@@ -36,6 +38,15 @@ public class Edge {
     public void setVisted() {
         isVisted = true;
     }
+
+    public void setAvailable() {
+        isAvailable = false;
+    }
+
+    public boolean getAvailable() {
+        return isAvailable;
+    }
+
 
     public boolean getIsVisted() {
         return isVisted;
