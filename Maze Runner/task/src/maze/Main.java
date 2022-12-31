@@ -62,6 +62,13 @@ public class Main {
 
         //graph.printMap();
         graph.printValues();
+        graph.createSpanningTree2();
+        ArrayList<Vertex> treeArray = graph.getSpanningTreeVertexArray();
+
+        for(Vertex v : treeArray) {
+            System.out.println(v.getLabel());
+        }
+        /*
         graph.findMatchEdge("0001");
 
         LinkedHashMap<Vertex,ArrayList<Edge>> tempList = graph.getAdjVerticesHashMap();
@@ -86,7 +93,7 @@ public class Main {
                 System.out.println(e.getIsVisted());
             }
         }
-
+        */
         //tempEdge.setAvailable();
         //tempEdge.setVisted();
 
