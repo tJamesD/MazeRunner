@@ -22,11 +22,7 @@ public class Graph {
         spanningTreeEdgeArray = new ArrayList<>();
         usedEdgesArray = new ArrayList<>();
         availableEdgesArray = new ArrayList<>();
-        //this.vertices = vertices;
-        //adjacencylist = new LinkedList[vertices];
-        //for(int i = 0; i<vertices;i++) {
-          //  adjacencylist[i] = new LinkedList<>();
-        //}
+
     }
 
     public void addVertex(Vertex vertex) {
