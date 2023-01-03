@@ -269,6 +269,9 @@ public class Graph {
                 availableEdgesArray.add(e);
             }
         }
+        for(Edge e: availableEdgesArray) {
+            System.out.println("AEA " + e.getLabel());
+        }
     }
 
     public void findMatchEdge(String label) {
@@ -288,11 +291,56 @@ public class Graph {
     public void addAvailableEdges(Vertex v ) {
         ArrayList<Edge> tempEdges = adjVertices.get(v);
 
+
+
+
+
         for (Edge e: tempEdges) {
+            if(availableEdgesArray.size()==0) {
+                for(Edge e3: tempEdges) {
+                    if(e3.getAvailable()) {
+                        availableEdgesArray.add(e);
+                    }
+                }
+                continue;
+            }
+            System.out.println("EDGE E " + e.getLabel());
+            ListIterator<Edge> iter = availableEdgesArray.listIterator();
+            while(iter.hasNext()) {
+                Edge nextEdge = iter.next();
+                //Edge nextEdge2 = new Edge(nextEdge.getSrc(), nextEdge.getDest(), nextEdge.getWeight());
+                //iter.previous();
+                System.out.println("ITER EDGE " + nextEdge.getLabel());
+                if(nextEdge.getLabel().equals(e.getLabel())) {
+                    //iter.next();
+                    continue;
+                }
+                else if(nextEdge.getAvailable()) {
+                    iter.add(nextEdge);
+                    //iter.next();
+                    System.out.println("Added edge " + nextEdge.getLabel());
+                }
+            }
+            /*
+            for(Edge e2: availableEdgesArray) {
+                System.out.println("EDGE E2 " + e2.getLabel());
+                if((e2.getLabel().equals(e.getLabel()))) {
+                    continue;
+                }
+                else if(e.getAvailable()) {
+                    availableEdgesArray.add(e);
+                    System.out.println("ADDED EDGE " + e.getLabel());
+                }
+            }
+
+             */
+            /*
             if(e.getAvailable()) {
                 availableEdgesArray.add(e);
                 System.out.println("ADDED EDGE " + e.getLabel());
             }
+
+             */
         }
     }
 
@@ -315,6 +363,7 @@ public class Graph {
 
         while(!allVisted()) {
             treeArray.add(v);
+            populateAvailableEdgesArray(adjVertices.get(v));
             addAvailableEdges(v);
             removeInvalidEdges();
             Edge nextEdge = pickMinOrRandomEdge2(rand);
