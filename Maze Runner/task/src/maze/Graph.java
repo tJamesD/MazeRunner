@@ -227,11 +227,12 @@ public class Graph {
                 int randomNumber = rand.nextInt(availableEdgesArray.size());
                 minEdge = availableEdgesArray.get(randomNumber);
             }
-            e.setAvailable();
-            e.setVisted();
-            minEdge.setAvailable();
-            minEdge.setVisted();
+            //e.setAvailable();
+            //e.setVisted();
+
         }
+        minEdge.setAvailable();
+        minEdge.setVisted();
         return minEdge;
     }
 
@@ -364,7 +365,7 @@ public class Graph {
         while(!allVisted()) {
             treeArray.add(v);
             populateAvailableEdgesArray(adjVertices.get(v));
-            addAvailableEdges(v);
+            //addAvailableEdges(v);
             removeInvalidEdges();
             Edge nextEdge = pickMinOrRandomEdge2(rand);
            // marks edges as visited and unavailable
@@ -387,7 +388,7 @@ public class Graph {
 
         while(iterator.hasNext()) {
             Edge e = (Edge) iterator.next();
-            if (!e.getAvailable() || (e.getSrc().getIsVisted() && e.getDest().getIsVisted())) {
+            if ((!e.getAvailable()) || (e.getSrc().getIsVisted() && e.getDest().getIsVisted())) {
                 System.out.println("REMOVED EDGE" + e.getLabel());
                 iterator.remove();
             }
