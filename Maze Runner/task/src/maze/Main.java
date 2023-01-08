@@ -62,7 +62,8 @@ public class Main {
 
         //graph.printMap();
         graph.printValues();
-        graph.createSpanningTree2();
+        //graph.createSpanningTree2();
+        graph.createSpanningTree3();
         ArrayList<Vertex> treeArray = graph.getSpanningTreeVertexArray();
 
         for(Vertex v : treeArray) {

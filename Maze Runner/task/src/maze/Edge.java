@@ -15,7 +15,7 @@ public class Edge {
         this.dest = dest;
         this.weight = weight;
         this.isVisted = false;
-        this.isAvailable = true;
+        this.isAvailable = false; //changed to default is false;
         label = src.getLabel()+dest.getLabel();
     }
 
@@ -41,6 +41,10 @@ public class Edge {
 
     public void setAvailable() {
         isAvailable = false;
+    }
+
+    public void setAvailableTrue() {
+        isAvailable = true;
     }
 
     public boolean getAvailable() {

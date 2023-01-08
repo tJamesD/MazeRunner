@@ -213,10 +213,12 @@ public class Graph {
 
     public Edge pickMinOrRandomEdge2(Random rand) {
 
+        Edge minEdge = new Edge(new Vertex(-1,-1), new Vertex(-1,-1), -1);
 
 
-            Edge minEdge = availableEdgesArray.get(0);
-
+            if(availableEdgesArray.size()>0) {
+                minEdge = availableEdgesArray.get(0);
+            }
 
 
         for(Edge e: availableEdgesArray) {
@@ -271,7 +273,7 @@ public class Graph {
             }
         }
         for(Edge e: availableEdgesArray) {
-            System.out.println("AEA " + e.getLabel());
+            //System.out.println("AEA " + e.getLabel());
         }
     }
 
@@ -282,10 +284,18 @@ public class Graph {
             for(Edge e: tempList) {
                 if(e.getLabel().equals(label)) {
                     e.setVisted();
-                    //e.setAvailable();
+                    e.setAvailable();
                 }
             }
 
+        }
+    }
+
+    public void findMatchVertex(String label) {
+        for(Vertex v : adjVertices.keySet()) {
+            if(v.getLabel().equals(label)) {
+                v.setVisted();
+            }
         }
     }
 
@@ -360,6 +370,7 @@ public class Graph {
 
         Vertex v = new Vertex(row, col);
 
+
         System.out.println("ACTIVE VERTEX " + v.getLabel());
 
         while(!allVisted()) {
@@ -380,6 +391,69 @@ public class Graph {
             }
             System.out.println("ACTIVE VERTEX " + v.getLabel());
         }
+    }
+
+    public void createSpanningTree3() {
+        int row = 0;
+        int col = 0;
+
+        Vertex v = new Vertex(row, col);
+
+        while(!allVisted()) {
+            System.out.println("V TO BE ADDED " + v.getLabel());
+            spanningTreeVertexArray.add(v);
+            findMatchVertex(v.getLabel());//marks vertex as visited and unavailable.
+
+            ArrayList<Edge> tempList = adjVertices.get(v);
+
+            for (Edge e : tempList) {
+                if (!e.getIsVisted()) {
+                    e.setAvailableTrue();
+                } else {
+                    e.setVisted();
+                }
+
+            }
+
+            Edge minEdge = minEdge3();
+            System.out.println("CHOSEN EDGE " + minEdge.getLabel());
+            findMatchEdge(minEdge.getLabel());// marks edge as visited and unavailable.
+            v = returnAvailableVertexFromEdge(minEdge);
+            System.out.println("V CHOSEN FROM METHOD " + v.getLabel());
+            System.out.println("-----------------------");
+        }
+
+    }
+
+    public Vertex returnAvailableVertexFromEdge(Edge e) {
+        if(!e.getDest().getIsVisted()) {
+            return e.getDest();
+        }
+        else {
+            return e.getSrc();
+        }
+    }
+
+    public Edge minEdge3() {
+
+        ArrayList<Edge> currentAvailableEdges = new ArrayList<>();
+
+        for(Vertex v : adjVertices.keySet()) {
+            ArrayList<Edge> tempList = adjVertices.get(v);
+            for(Edge e: tempList) {
+                if(e.getAvailable()) {
+                    currentAvailableEdges.add(e);
+                }
+            }
+        }
+
+        Edge minEdge = new Edge(new Vertex(-1, -1), new Vertex(-2, -2), 99);
+        for(Edge e: currentAvailableEdges) {
+            if(e.getWeight()<minEdge.getWeight()) {
+                minEdge = e;
+            }
+        }
+        return minEdge;
     }
 
     public void removeInvalidEdges() {
