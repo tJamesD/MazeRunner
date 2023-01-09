@@ -295,6 +295,7 @@ public class Graph {
         for(Vertex v : adjVertices.keySet()) {
             if(v.getLabel().equals(label)) {
                 v.setVisted();
+
             }
         }
     }
@@ -385,9 +386,11 @@ public class Graph {
 
             if(nextEdge.getDest().getIsVisted()) {
                 v = nextEdge.getSrc();
+
             }
             else {
                 v = nextEdge.getDest();
+
             }
             System.out.println("ACTIVE VERTEX " + v.getLabel());
         }
@@ -403,6 +406,7 @@ public class Graph {
             System.out.println("V TO BE ADDED " + v.getLabel());
             spanningTreeVertexArray.add(v);
             findMatchVertex(v.getLabel());//marks vertex as visited and unavailable.
+            searchHashMapForNewlyUnavailableEdges();//updates hashmap.
 
             ArrayList<Edge> tempList = adjVertices.get(v);
 
@@ -414,6 +418,8 @@ public class Graph {
                 }
 
             }
+
+            searchHashMapForNewlyUnavailableEdges();
 
             Edge minEdge = minEdge3();
             System.out.println("CHOSEN EDGE " + minEdge.getLabel());
@@ -427,9 +433,12 @@ public class Graph {
 
     public Vertex returnAvailableVertexFromEdge(Edge e) {
         if(!e.getDest().getIsVisted()) {
+            System.out.println(e.getDest().getIsVisted() + "-IS VISTED OF DEST");
+            System.out.println("DESTINATION VERTEX PICKED");
             return e.getDest();
         }
         else {
+            System.out.println("SRC VERTEX PICKED");
             return e.getSrc();
         }
     }
@@ -472,6 +481,17 @@ public class Graph {
 
     public ArrayList<Vertex> getSpanningTreeVertexArray() {
         return spanningTreeVertexArray;
+    }
+
+    public void searchHashMapForNewlyUnavailableEdges() {
+        for(Vertex V: adjVertices.keySet());
+            ArrayList<Edge> tempList = new ArrayList<>();
+
+            for(Edge e: tempList) {
+                if(e.getSrc().getIsVisted() && e.getDest().getIsVisted() ) {
+                    e.setAvailable();
+                }
+            }
     }
 
     public LinkedHashMap<Vertex,ArrayList<Edge>> getAdjVerticesHashMap() {
