@@ -406,6 +406,8 @@ public class Graph {
             System.out.println("V TO BE ADDED " + v.getLabel());
             spanningTreeVertexArray.add(v);
             findMatchVertex(v.getLabel());//marks vertex as visited and unavailable.
+            updateVertexInsideOfHashMapArray(v.getLabel());
+            //showUnavailableVertexes();
             searchHashMapForNewlyUnavailableEdges();//updates hashmap.
 
             ArrayList<Edge> tempList = adjVertices.get(v);
@@ -425,8 +427,11 @@ public class Graph {
             System.out.println("CHOSEN EDGE " + minEdge.getLabel());
             findMatchEdge(minEdge.getLabel());// marks edge as visited and unavailable.
             v = returnAvailableVertexFromEdge(minEdge);
+            updateVertexInsideOfHashMapArray(v.getLabel());
             System.out.println("V CHOSEN FROM METHOD " + v.getLabel());
             System.out.println("-----------------------");
+
+            searchHashMapForNewlyUnavailableEdges();
         }
 
     }
@@ -484,14 +489,41 @@ public class Graph {
     }
 
     public void searchHashMapForNewlyUnavailableEdges() {
-        for(Vertex V: adjVertices.keySet());
+        for(Vertex V: adjVertices.keySet()) {
             ArrayList<Edge> tempList = new ArrayList<>();
 
-            for(Edge e: tempList) {
-                if(e.getSrc().getIsVisted() && e.getDest().getIsVisted() ) {
+            for (Edge e : tempList) {
+                if (e.getSrc().getIsVisted() && e.getDest().getIsVisted()) {
                     e.setAvailable();
                 }
+
             }
+            //adjVertices.put(V, tempList);
+        }
+    }
+
+    public void showUnavailableVertexes() {
+        for(Vertex v: adjVertices.keySet()) {
+            if( v.getIsVisted()) {
+                System.out.println("sUV " + v.getLabel());
+            }
+        }
+    }
+
+    public void updateVertexInsideOfHashMapArray(String label) {
+        for(Vertex v: adjVertices.keySet()) {
+            ArrayList<Edge> tempList = adjVertices.get(v);
+
+            for(Edge e: tempList) {
+                if(label.equals(e.getSrc().getLabel())) {
+                    e.getSrc().setVisted();
+                }
+                if(label.equals(e.getDest().getLabel())) {
+                    e.getDest().setVisted();
+                }
+            }
+
+        }
     }
 
     public LinkedHashMap<Vertex,ArrayList<Edge>> getAdjVerticesHashMap() {
