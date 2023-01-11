@@ -297,6 +297,22 @@ public class Graph {
                 v.setVisted();
 
             }
+
+            ArrayList<Edge> tempList = adjVertices.get(v);
+            for(Edge e: tempList) {
+                if(label.equals(e.getDest().getLabel())) {
+                    e.getDest().setVisted();
+                }
+                if(label.equals(e.getSrc().getLabel())) {
+                    e.getSrc().setVisted();
+                }
+                if(e.getSrc().getIsVisted() && e.getDest().getIsVisted()) {
+                    //e.setVisted();
+                    e.setAvailable();
+                }
+            }
+            adjVertices.put(v,tempList);
+
         }
     }
 
@@ -517,12 +533,38 @@ public class Graph {
             for(Edge e: tempList) {
                 if(label.equals(e.getSrc().getLabel())) {
                     e.getSrc().setVisted();
+
                 }
                 if(label.equals(e.getDest().getLabel())) {
                     e.getDest().setVisted();
                 }
-            }
 
+            }
+            adjVertices.put(v,tempList);
+
+        }
+    }
+
+    public void showUnselectedEdges() {
+        for(Vertex v : adjVertices.keySet()) {
+            ArrayList<Edge> tempList = adjVertices.get(v);
+
+            for(Edge e: tempList) {
+                if(!e.getIsVisted()) {
+                    System.out.println(e.getLabel());
+                }
+            }
+        }
+    }
+    public void showSelectedEdges() {
+        for(Vertex v : adjVertices.keySet()) {
+            ArrayList<Edge> tempList = adjVertices.get(v);
+
+            for(Edge e: tempList) {
+                if(e.getIsVisted()) {
+                    System.out.println("SELECTED " + e.getLabel());
+                }
+            }
         }
     }
 
