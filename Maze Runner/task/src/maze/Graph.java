@@ -124,6 +124,20 @@ public class Graph {
         System.out.println();
     }
 
+    public void printSelectedValues() {
+        for(Vertex v:adjVertices.keySet()) {
+            ArrayList<Edge> tempArray = adjVertices.get(v);
+            System.out.println();
+            System.out.print("MAIN VErTEX "+v.getLabel() + " ");
+            for(Edge e:tempArray) {
+                if(e.getIsVisted()) {
+                    System.out.print(e.getLabel() + " ");
+                }
+            }
+        }
+        System.out.println();
+    }
+
     public LinkedHashMap<Vertex, ArrayList<Edge>> getAdjVertices() {
         return adjVertices;
     }
@@ -419,15 +433,16 @@ public class Graph {
         Vertex v = new Vertex(row, col);
 
         while(!allVisted()) {
-            System.out.println("V TO BE ADDED " + v.getLabel());
+            //System.out.println("V TO BE ADDED " + v.getLabel());
             spanningTreeVertexArray.add(v);
-            findMatchVertex(v.getLabel());//marks vertex as visited and unavailable.
-            updateVertexInsideOfHashMapArray(v.getLabel());
+            findMatchVertex(v.getLabel());//marks vertex as visited and unavailable, and edge as nescceary.
+            //updateVertexInsideOfHashMapArray(v.getLabel());
             //showUnavailableVertexes();
-            searchHashMapForNewlyUnavailableEdges();//updates hashmap.
+            //searchHashMapForNewlyUnavailableEdges();//updates hashmap.
 
             ArrayList<Edge> tempList = adjVertices.get(v);
-
+            System.out.println("LIST FROM " + v.getLabel());
+/*
             for (Edge e : tempList) {
                 if (!e.getIsVisted()) {
                     e.setAvailableTrue();
@@ -437,31 +452,39 @@ public class Graph {
 
             }
 
-            searchHashMapForNewlyUnavailableEdges();
+ */
+            makeEdgesAvailable(v);
+
+            //searchHashMapForNewlyUnavailableEdges();
 
             Edge minEdge = minEdge3();
             System.out.println("CHOSEN EDGE " + minEdge.getLabel());
             findMatchEdge(minEdge.getLabel());// marks edge as visited and unavailable.
             v = returnAvailableVertexFromEdge(minEdge);
-            updateVertexInsideOfHashMapArray(v.getLabel());
-            System.out.println("V CHOSEN FROM METHOD " + v.getLabel());
-            System.out.println("-----------------------");
+            findMatchVertex(v.getLabel());
+            //updateVertexInsideOfHashMapArray(v.getLabel());
+            //System.out.println("V CHOSEN FROM METHOD " + v.getLabel());
+            //System.out.println("-----------------------");
 
-            searchHashMapForNewlyUnavailableEdges();
+            //searchHashMapForNewlyUnavailableEdges();
         }
 
     }
 
     public Vertex returnAvailableVertexFromEdge(Edge e) {
+        Vertex errorVertex = new Vertex(-3,-3);
+
         if(!e.getDest().getIsVisted()) {
-            System.out.println(e.getDest().getIsVisted() + "-IS VISTED OF DEST");
-            System.out.println("DESTINATION VERTEX PICKED");
+            //System.out.println(e.getDest().getIsVisted() + "-IS VISTED OF DEST");
+            //System.out.println("DESTINATION VERTEX PICKED");
             return e.getDest();
         }
-        else {
-            System.out.println("SRC VERTEX PICKED");
+        else if(!e.getSrc().getIsVisted()) {
+            //System.out.println("SRC VERTEX PICKED");
             return e.getSrc();
         }
+
+        return errorVertex;
     }
 
     public Edge minEdge3() {
@@ -514,7 +537,7 @@ public class Graph {
                 }
 
             }
-            //adjVertices.put(V, tempList);
+            adjVertices.put(V, tempList);
         }
     }
 
@@ -570,5 +593,15 @@ public class Graph {
 
     public LinkedHashMap<Vertex,ArrayList<Edge>> getAdjVerticesHashMap() {
         return adjVertices;
+    }
+
+    public void makeEdgesAvailable(Vertex v) {
+        //ArrayList<Edge> tempList = adjVertices.get(v);
+        for(Edge e: adjVertices.get(v)) {
+            if(!e.getIsVisted()) {
+                e.setAvailableTrue();
+            }
+        }
+
     }
 }

@@ -69,8 +69,10 @@ public class Main {
         for(Vertex v : treeArray) {
             System.out.println(v.getLabel());
         }
-        graph.showUnselectedEdges();
-        graph.showSelectedEdges();
+        //graph.showUnselectedEdges();
+        //graph.showSelectedEdges();
+
+        graph.printSelectedValues();
         /*
         graph.findMatchEdge("0001");
 
