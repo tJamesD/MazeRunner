@@ -118,7 +118,7 @@ public class Graph {
             System.out.println();
             System.out.print("MAIN VErTEX "+v.getLabel() + " ");
             for(Edge e:tempArray) {
-                System.out.print(e.getLabel() + " ");
+                System.out.print(e.getLabel() + " " + "WEIGHT: " + e.getWeight() + " ");
             }
         }
         System.out.println();
@@ -483,6 +483,36 @@ public class Graph {
             //System.out.println("SRC VERTEX PICKED");
             return e.getSrc();
         }
+
+        ArrayList<Edge> alternateRandomEdgeList = new ArrayList<>();
+
+        for(Vertex V: adjVertices.keySet()) {
+            if(V.getIsVisted()) {
+                for(Edge E: adjVertices.get(V)) {
+                    if(e.getAvailable()) {
+                        alternateRandomEdgeList.add(e);
+                    }
+                }
+            }
+        }
+
+        Random rand = new Random();
+        if(alternateRandomEdgeList.size() >= 0 ) {
+        int randomIndex = rand.nextInt(alternateRandomEdgeList.size());
+
+            Edge randomEdge = alternateRandomEdgeList.get(randomIndex);
+
+
+            if (!randomEdge.getDest().getIsVisted()) {
+                //System.out.println(e.getDest().getIsVisted() + "-IS VISTED OF DEST");
+                //System.out.println("DESTINATION VERTEX PICKED");
+                return randomEdge.getDest();
+            } else if (!randomEdge.getSrc().getIsVisted()) {
+                //System.out.println("SRC VERTEX PICKED");
+                return randomEdge.getSrc();
+            }
+        }
+
 
         return errorVertex;
     }

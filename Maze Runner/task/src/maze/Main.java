@@ -29,7 +29,7 @@ public class Main {
                     if ((!validCellArray[i].equals("-1")) && (!validCellArray[i].equals("-2"))) {
                         int vertexRow = Character.getNumericValue(validCellArray[i].charAt(0));
                         int vertexCol = Character.getNumericValue(validCellArray[i].charAt(1));
-                        int weight = rand.nextInt(3) + 1;
+                        int weight = rand.nextInt(4) + 1;
 
                         Vertex destVertex = new Vertex(vertexRow, vertexCol);
                         graph.addVertex(destVertex);
