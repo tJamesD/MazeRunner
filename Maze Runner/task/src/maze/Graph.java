@@ -14,6 +14,7 @@ public class Graph {
     ArrayList<Edge> allEdgesArray;
     ArrayList<Edge> usedEdgesArray;
     ArrayList<Edge> availableEdgesArray;
+    ArrayList<String> labelAvailableEdgesArray;
 
     public Graph() {
         adjVertices = new LinkedHashMap<>();
@@ -22,6 +23,7 @@ public class Graph {
         spanningTreeEdgeArray = new ArrayList<>();
         usedEdgesArray = new ArrayList<>();
         availableEdgesArray = new ArrayList<>();
+        labelAvailableEdgesArray = new ArrayList<>();
 
     }
 
@@ -293,9 +295,9 @@ public class Graph {
 
     public void findMatchEdge(String label) {
         for(Vertex v : adjVertices.keySet()) {
-            ArrayList<Edge> tempList = adjVertices.get(v);
+            //ArrayList<Edge> tempList = adjVertices.get(v);
 
-            for(Edge e: tempList) {
+            for(Edge e: adjVertices.get(v)) {
                 if(e.getLabel().equals(label)) {
                     e.setVisted();
                     e.setAvailable();
@@ -440,7 +442,7 @@ public class Graph {
             //showUnavailableVertexes();
             //searchHashMapForNewlyUnavailableEdges();//updates hashmap.
 
-            ArrayList<Edge> tempList = adjVertices.get(v);
+            //ArrayList<Edge> tempList = adjVertices.get(v);
             System.out.println("LIST FROM " + v.getLabel());
 /*
             for (Edge e : tempList) {
@@ -454,6 +456,7 @@ public class Graph {
 
  */
             makeEdgesAvailable(v);
+            checkForMissedAvailableEdges();
 
             //searchHashMapForNewlyUnavailableEdges();
 
@@ -630,8 +633,20 @@ public class Graph {
         for(Edge e: adjVertices.get(v)) {
             if(!e.getIsVisted()) {
                 e.setAvailableTrue();
+                labelAvailableEdgesArray.add(e.getLabel());
             }
         }
 
+
+    }
+
+    public void checkForMissedAvailableEdges() {
+        for(Vertex v: adjVertices.keySet()) {
+            for(Edge e: adjVertices.get(v)) {
+                if(labelAvailableEdgesArray.contains(e.getLabel()) && (!e.getIsVisted())) {
+                    e.setAvailableTrue();
+                }
+            }
+        }
     }
 }
