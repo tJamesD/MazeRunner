@@ -116,12 +116,13 @@ public class Graph {
     }
     public void printValues() {
         for(Vertex v:adjVertices.keySet()) {
-            ArrayList<Edge> tempArray = adjVertices.get(v);
-            System.out.println();
             System.out.print("MAIN VErTEX "+v.getLabel() + " ");
-            for(Edge e:tempArray) {
-                System.out.print(e.getLabel() + " " + "WEIGHT: " + e.getWeight() + " ");
+            for(Edge e: adjVertices.get(v)) {
+                System.out.print(e.getLabel() + " ");
             }
+            System.out.println();
+
+
         }
         System.out.println();
     }
@@ -314,8 +315,8 @@ public class Graph {
 
             }
 
-            ArrayList<Edge> tempList = adjVertices.get(v);
-            for(Edge e: tempList) {
+
+            for(Edge e: adjVertices.get(v)) {
                 if(label.equals(e.getDest().getLabel())) {
                     e.getDest().setVisted();
                 }
@@ -327,7 +328,7 @@ public class Graph {
                     e.setAvailable();
                 }
             }
-            adjVertices.put(v,tempList);
+
 
         }
     }
@@ -437,13 +438,13 @@ public class Graph {
         while(!allVisted()) {
             //System.out.println("V TO BE ADDED " + v.getLabel());
             spanningTreeVertexArray.add(v);
-            findMatchVertex(v.getLabel());//marks vertex as visited and unavailable, and edge as nescceary.
+            findMatchVertex(v.getLabel());//marks vertex as visited, and vertexes inside of edge as unavailable. Will check unavailable edge.
             //updateVertexInsideOfHashMapArray(v.getLabel());
             //showUnavailableVertexes();
             //searchHashMapForNewlyUnavailableEdges();//updates hashmap.
 
             //ArrayList<Edge> tempList = adjVertices.get(v);
-            System.out.println("LIST FROM " + v.getLabel());
+            System.out.println("Selected Vertex " + v.getLabel());
 /*
             for (Edge e : tempList) {
                 if (!e.getIsVisted()) {
@@ -455,14 +456,23 @@ public class Graph {
             }
 
  */
+            System.out.print("1 ");
+            printLabelAvailableEdgesArray();
             makeEdgesAvailable(v);
+            System.out.print("2 ");
+            printLabelAvailableEdgesArray();
             checkForMissedAvailableEdges();
+            System.out.print("3 ");
+            printLabelAvailableEdgesArray();
 
             //searchHashMapForNewlyUnavailableEdges();
 
             Edge minEdge = minEdge3();
             System.out.println("CHOSEN EDGE " + minEdge.getLabel());
             findMatchEdge(minEdge.getLabel());// marks edge as visited and unavailable.
+            findMatchVertex(v.getLabel());
+            System.out.print("4 ");
+            printLabelAvailableEdgesArray();
             v = returnAvailableVertexFromEdge(minEdge);
             findMatchVertex(v.getLabel());
             //updateVertexInsideOfHashMapArray(v.getLabel());
@@ -631,9 +641,12 @@ public class Graph {
     public void makeEdgesAvailable(Vertex v) {
         //ArrayList<Edge> tempList = adjVertices.get(v);
         for(Edge e: adjVertices.get(v)) {
-            if(!e.getIsVisted()) {
+            if(!e.getIsVisted() && ((!e.getSrc().getIsVisted()) || (!e.getDest().getIsVisted()))) {
                 e.setAvailableTrue();
                 labelAvailableEdgesArray.add(e.getLabel());
+            }
+            if(e.getIsVisted()) {
+                labelAvailableEdgesArray.remove(e.getLabel());
             }
         }
 
@@ -646,7 +659,20 @@ public class Graph {
                 if(labelAvailableEdgesArray.contains(e.getLabel()) && (!e.getIsVisted())) {
                     e.setAvailableTrue();
                 }
+                if(e.getIsVisted()) {
+                    labelAvailableEdgesArray.remove(e.getLabel());
+                }
             }
         }
+    }
+
+    public void printLabelAvailableEdgesArray() {
+        System.out.print("[");
+        for(String s: labelAvailableEdgesArray) {
+
+            System.out.print(s + ", ");
+        }
+
+        System.out.println("]");
     }
 }
