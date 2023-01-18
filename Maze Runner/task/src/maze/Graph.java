@@ -326,6 +326,10 @@ public class Graph {
                 if(e.getSrc().getIsVisted() && e.getDest().getIsVisted()) {
                     //e.setVisted();
                     e.setAvailable();
+
+                    while(labelAvailableEdgesArray.contains(e.getLabel())) {
+                        labelAvailableEdgesArray.remove(e.getLabel());
+                    }
                 }
             }
 
@@ -497,24 +501,24 @@ public class Graph {
             return e.getSrc();
         }
 
-        ArrayList<Edge> alternateRandomEdgeList = new ArrayList<>();
+        //ArrayList<Edge> alternateRandomEdgeList = new ArrayList<>();
 
-        for(Vertex V: adjVertices.keySet()) {
-            if(V.getIsVisted()) {
-                for(Edge E: adjVertices.get(V)) {
-                    if(e.getAvailable()) {
-                        alternateRandomEdgeList.add(e);
+        Random rand = new Random();
+
+        Edge randomEdge = new Edge(new Vertex(-5, -5), new Vertex(-5, -5), 99);
+
+        int randomIndex = rand.nextInt(labelAvailableEdgesArray.size());
+            String label = labelAvailableEdgesArray.get(randomIndex);
+            for(Vertex v: adjVertices.keySet()) {
+                for(Edge edge: adjVertices.get(v)){
+                    if(edge.getLabel().equals(label)) {
+                        randomEdge = edge;
+                        System.out.println("randomEDGE " + randomEdge.getLabel());
                     }
                 }
             }
-        }
-
-        Random rand = new Random();
-        if(alternateRandomEdgeList.size() >= 0 ) {
-        int randomIndex = rand.nextInt(alternateRandomEdgeList.size());
-
-            Edge randomEdge = alternateRandomEdgeList.get(randomIndex);
-
+            System.out.println("RANDOM DST " + randomEdge.getDest().getIsVisted());
+            System.out.println("RANDOM SRC " + randomEdge.getSrc().getIsVisted());
 
             if (!randomEdge.getDest().getIsVisted()) {
                 //System.out.println(e.getDest().getIsVisted() + "-IS VISTED OF DEST");
@@ -524,7 +528,7 @@ public class Graph {
                 //System.out.println("SRC VERTEX PICKED");
                 return randomEdge.getSrc();
             }
-        }
+
 
 
         return errorVertex;
@@ -660,7 +664,10 @@ public class Graph {
                     e.setAvailableTrue();
                 }
                 if(e.getIsVisted()) {
-                    labelAvailableEdgesArray.remove(e.getLabel());
+                    while(labelAvailableEdgesArray.contains(e.getLabel())) {
+                        labelAvailableEdgesArray.remove(e.getLabel());
+                    }
+
                 }
             }
         }
