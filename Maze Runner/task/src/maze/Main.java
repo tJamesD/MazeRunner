@@ -67,11 +67,11 @@ public class Main {
         ArrayList<Vertex> treeArray = graph.getSpanningTreeVertexArray();
 
         for(Vertex v : treeArray) {
-            System.out.println(v.getLabel());
+            //System.out.println(v.getLabel());
         }
-        //graph.showUnselectedEdges();
+        graph.showUnselectedEdges();
         //graph.showSelectedEdges();
-
+        System.out.println("=====================");
         graph.printSelectedValues();
         /*
         graph.findMatchEdge("0001");
@@ -109,6 +109,9 @@ public class Main {
 
 
 
+        maze.updateMazeFromSpanningTree(graph.getHashMap());
+
+        maze.printMazeBoardArrayValues();
 
 
 

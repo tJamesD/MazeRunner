@@ -2,6 +2,7 @@ package maze;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.Random;
 
 public class mazeBoard {
@@ -19,11 +20,12 @@ public class mazeBoard {
         rand = new Random();
         baseRow = row;
         baseCol = col;
-        fillArrayOneZero();
+        //fillArrayOneZero();
+        fillArrayWithOnes();
         //printMazeBoardArrayOneZero();
-        createEntranceExit();
-        createUnChangeableWallArray();
-        updateArrayBasedOnOneCount();
+        //createEntranceExit();
+        //createUnChangeableWallArray();
+        //updateArrayBasedOnOneCount();
         //fillArrayAllOnes();
     }
 
@@ -35,6 +37,16 @@ public class mazeBoard {
                 } else {
                     mazeBoardArray[rows][cols] = rand.nextInt(2);
                 }
+
+            }
+
+        }
+    }
+
+    public void fillArrayWithOnes() {
+        for (int rows = 0; rows < mazeBoardArray.length; rows++) {
+            for (int cols = 0; cols < mazeBoardArray[rows].length; cols++) {
+                mazeBoardArray[rows][cols] = 1;
 
             }
 
@@ -241,6 +253,34 @@ public class mazeBoard {
 
         }
         return validArray;
+    }
+
+    public void updateMazeFromSpanningTree(LinkedHashMap<Vertex, ArrayList<Edge>> adjVertices) {
+
+        for(Vertex v: adjVertices.keySet()) {
+            for(Edge e : adjVertices.get(v)) {
+                if(e.getIsVisted()) {
+                    String dest = e.getDest().getLabel();
+                    int row = Integer.parseInt(String.valueOf(dest.charAt(0)));
+                    int col = Integer.parseInt(String.valueOf(dest.charAt(1)));
+
+                    //Vertex pathVertex = new Vertex(row, col);
+
+                    mazeBoardArray[row][col] = 0;
+
+                }
+            }
+        }
+
+    }
+
+    public void printMazeBoardArrayValues() {
+        for (int rows = 0; rows < mazeBoardArray.length; rows++) {
+            for (int cols = 0; cols < mazeBoardArray[rows].length; cols++) {
+                System.out.print(mazeBoardArray[rows][cols]);
+            }
+            System.out.println();
+        }
     }
 
 

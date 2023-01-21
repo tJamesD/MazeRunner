@@ -460,14 +460,14 @@ public class Graph {
             }
 
  */
-            System.out.print("1 ");
-            printLabelAvailableEdgesArray();
+            //System.out.print("1 ");
+            //printLabelAvailableEdgesArray();
             makeEdgesAvailable(v);
-            System.out.print("2 ");
-            printLabelAvailableEdgesArray();
+            //System.out.print("2 ");
+            //printLabelAvailableEdgesArray();
             checkForMissedAvailableEdges();
-            System.out.print("3 ");
-            printLabelAvailableEdgesArray();
+            //System.out.print("3 ");
+            //printLabelAvailableEdgesArray();
 
             //searchHashMapForNewlyUnavailableEdges();
 
@@ -475,8 +475,8 @@ public class Graph {
             System.out.println("CHOSEN EDGE " + minEdge.getLabel());
             findMatchEdge(minEdge.getLabel());// marks edge as visited and unavailable.
             findMatchVertex(v.getLabel());
-            System.out.print("4 ");
-            printLabelAvailableEdgesArray();
+            //System.out.print("4 ");
+            //printLabelAvailableEdgesArray();
             v = returnAvailableVertexFromEdge(minEdge);
             findMatchVertex(v.getLabel());
             //updateVertexInsideOfHashMapArray(v.getLabel());
@@ -617,9 +617,9 @@ public class Graph {
 
     public void showUnselectedEdges() {
         for(Vertex v : adjVertices.keySet()) {
-            ArrayList<Edge> tempList = adjVertices.get(v);
+            //ArrayList<Edge> tempList = adjVertices.get(v);
 
-            for(Edge e: tempList) {
+            for(Edge e: adjVertices.get(v)) {
                 if(!e.getIsVisted()) {
                     System.out.println(e.getLabel());
                 }
@@ -682,4 +682,10 @@ public class Graph {
 
         System.out.println("]");
     }
+
+    public LinkedHashMap<Vertex, ArrayList<Edge>> getHashMap() {
+        return adjVertices;
+    }
+
+
 }
